@@ -70,7 +70,7 @@ class TransferPresenter {
             return TransactionDataError.MISSING_TO_ACCOUNT
         } else if (amount.isEmpty()) {
             return TransactionDataError.MISSING_AMOUNT
-        } else if (!NumberHelper.isValidDollarAmount(amount)) {
+        } else if (!NumberHelper.isValidDollarFormat(amount)) {
             return TransactionDataError.INVALID_AMOUNT
         } else if (fromAccountNumber == toAccountNumber) {
             return TransactionDataError.SAME_FROM_AND_TO_ACCOUNT
