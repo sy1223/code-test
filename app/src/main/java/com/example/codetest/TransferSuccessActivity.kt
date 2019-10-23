@@ -32,7 +32,7 @@ class TransferSuccessActivity : AppCompatActivity(), TransferSuccessView {
         super.onDestroy()
     }
 
-    //
+    // TransferSuccessView functions
 
     override fun onShowTransferSuccess(referenceNumber: String) {
         tvReferenceNumber.setText(referenceNumber)
