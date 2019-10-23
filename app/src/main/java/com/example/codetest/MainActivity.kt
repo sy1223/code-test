@@ -1,6 +1,7 @@
 package com.example.codetest
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -64,7 +65,9 @@ class MainActivity : AppCompatActivity(), TransferView {
     }
 
     override fun onTransferSuccess(referenceNumber: String) {
-
+        val intent = Intent(this, TransferSuccessActivity::class.java)
+        intent.putExtra(TransferSuccessActivity.DATA_REFERENCE_NUMBER, referenceNumber)
+        startActivity(intent)
     }
 
     override fun onTransferError(errorMessage: String) {
