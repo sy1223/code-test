@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">codetest</string>
+    <string name="app_name">Transfer</string>
+    <string name="from_account">From Account:</string>
+    <string name="to_account">To Account:</string>
+    <string name="amount">Amount:</string>
+    <string name="hkd">HKD</string>
+    <string name="confirm">Confirm</string>
+    <string name="choose_an_account">Choose an account:</string>
+
+
+
+
+
 </resources>
