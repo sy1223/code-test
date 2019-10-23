@@ -1,6 +1,6 @@
 package com.example.codetest.view
 
 interface TransferSuccessView {
-    fun onShowTransferSuccess(referenceNumber: String)
+    fun onShowTransferSuccess(fromAccountNumber: String, toAccountNumber: String, amount: Double, referenceNumber: String)
     fun onDismissView()
 }

@@ -6,10 +6,10 @@ class TransferSuccessPresenter {
 
     private var transferSuccessView: TransferSuccessView? = null
 
-    constructor(transferSuccessView: TransferSuccessView, referenceNumber: String) {
+    constructor(transferSuccessView: TransferSuccessView, fromAccountNumber: String, toAccountNumber: String, amount: Double, referenceNumber: String) {
         this.transferSuccessView = transferSuccessView
 
-        transferSuccessView.onShowTransferSuccess(referenceNumber)
+        transferSuccessView.onShowTransferSuccess(fromAccountNumber, toAccountNumber, amount, referenceNumber)
     }
 
     fun onCloseView() {

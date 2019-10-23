@@ -67,8 +67,11 @@ class MainActivity : AppCompatActivity(), TransferView {
         tvErrorMessage.setText("")
     }
 
-    override fun onTransferSuccess(referenceNumber: String) {
+    override fun onTransferSuccess(fromAccountNumber: String, toAccountNumber: String, amount: Double, referenceNumber: String) {
         val intent = Intent(this, TransferSuccessActivity::class.java)
+        intent.putExtra(TransferSuccessActivity.DATA_FROM_ACCOUNT_NUMBER, fromAccountNumber)
+        intent.putExtra(TransferSuccessActivity.DATA_TO_ACCOUNT_NUMBER, toAccountNumber)
+        intent.putExtra(TransferSuccessActivity.DATA_AMOUNT, amount)
         intent.putExtra(TransferSuccessActivity.DATA_REFERENCE_NUMBER, referenceNumber)
         startActivity(intent)
     }

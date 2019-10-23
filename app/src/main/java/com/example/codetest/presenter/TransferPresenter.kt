@@ -94,7 +94,7 @@ class TransferPresenter {
                 val transaction = response?.body()
 
                 if (response != null && response.isSuccessful() && transaction != null && transaction.isSuccessTransaction()) {
-                    transferView?.onTransferSuccess(transaction.referenceNumber)
+                    transferView?.onTransferSuccess(transaction.fromAccountNumber, transaction.toAccountNumber, transaction.amount, transaction.referenceNumber)
                 } else {
                     transferView?.onTransferError(R.string.error_server_error)
                 }

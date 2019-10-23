@@ -2,6 +2,7 @@ package com.example.codetest.presenter
 
 import com.example.codetest.R
 import com.example.codetest.view.TransferView
+import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.then
 import org.junit.After
 import org.junit.Before
@@ -72,7 +73,7 @@ class TransferPresenterUnitTest {
     fun when_transferWithValidInformation_then_callOnTransferSuccess() {
         transferPresenter.onTransfer("507-123456-001", "507-123456-838", "16.77")
         Thread.sleep(2000) // Wait for 2 seconds
-        then(mockTransferView).should().onTransferSuccess(ArgumentMatchers.startsWith("REF"))
+        then(mockTransferView).should().onTransferSuccess(eq("507-123456-001"), eq("507-123456-838"), eq(16.77), ArgumentMatchers.startsWith("REF"))
     }
 
     @After
