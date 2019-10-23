@@ -6,7 +6,9 @@
     <string name="hkd">HKD</string>
     <string name="confirm">Confirm</string>
     <string name="choose_an_account">Choose an account:</string>
-
+    <string name="success">Success!</string>
+    <string name="reference_number">Reference Number:</string>
+    <string name="close">Close</string>
 
 
 
