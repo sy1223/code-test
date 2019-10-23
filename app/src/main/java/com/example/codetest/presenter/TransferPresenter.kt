@@ -4,6 +4,7 @@ import com.example.codetest.model.DummyData
 import com.example.codetest.view.TransferView
 
 class TransferPresenter {
+
     private var transferView: TransferView? = null
 
     constructor(transferView: TransferView) {
