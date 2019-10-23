@@ -70,8 +70,8 @@ class MainActivity : AppCompatActivity(), TransferView {
         startActivity(intent)
     }
 
-    override fun onTransferError(errorMessage: String) {
-        val toast = Toast.makeText(applicationContext, errorMessage, Toast.LENGTH_LONG)
+    override fun onTransferError(errorMessageRedId: Int) {
+        val toast = Toast.makeText(applicationContext, getString(errorMessageRedId), Toast.LENGTH_LONG)
         toast.show()
     }
 }

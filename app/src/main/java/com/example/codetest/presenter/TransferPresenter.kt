@@ -1,5 +1,6 @@
 package com.example.codetest.presenter
 
+import com.example.codetest.R
 import com.example.codetest.helper.NumberHelper
 import com.example.codetest.model.DummyData
 import com.example.codetest.model.Transaction
@@ -44,15 +45,15 @@ class TransferPresenter {
             val transaction = Transaction(fromAccountNumber, toAccountNumber, amount.toDouble())
             postTransferRequest(transaction)
         } else {
-            val errorMessage = when (transactionDataError) {
-                TransactionDataError.MISSING_FROM_ACCOUNT -> "MISSING_FROM_ACCOUNT"
-                TransactionDataError.MISSING_TO_ACCOUNT -> "MISSING_TO_ACCOUNT"
-                TransactionDataError.SAME_FROM_AND_TO_ACCOUNT -> "SAME_FROM_AND_TO_ACCOUNT"
-                TransactionDataError.MISSING_AMOUNT -> "MISSING_AMOUNT"
-                TransactionDataError.INVALID_AMOUNT -> "INVALID_AMOUNT"
+            val errorMessageRedId = when (transactionDataError) {
+                TransactionDataError.MISSING_FROM_ACCOUNT -> R.string.error_missing_from_account
+                TransactionDataError.MISSING_TO_ACCOUNT -> R.string.error_missing_to_account
+                TransactionDataError.SAME_FROM_AND_TO_ACCOUNT -> R.string.error_from_and_to_account_cannot_be_the_same
+                TransactionDataError.MISSING_AMOUNT -> R.string.error_missing_amount
+                TransactionDataError.INVALID_AMOUNT -> R.string.error_invalid_amount
             }
 
-            transferView?.onTransferError(errorMessage)
+            transferView?.onTransferError(errorMessageRedId)
         }
     }
 
@@ -93,12 +94,12 @@ class TransferPresenter {
                 if (response != null && response.isSuccessful() && transaction != null && transaction.isSuccessTransaction()) {
                     transferView?.onTransferSuccess(transaction.referenceNumber)
                 } else {
-                    transferView?.onTransferError("SERVER_ERROR")
+                    transferView?.onTransferError(R.string.error_server_error)
                 }
             }
 
             override fun onFailure(call: Call<Transaction>?, t: Throwable?) {
-                transferView?.onTransferError("SERVER_ERROR")
+                transferView?.onTransferError(R.string.error_server_error)
             }
         })
     }

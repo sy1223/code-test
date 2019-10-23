@@ -10,7 +10,11 @@
     <string name="reference_number">Reference Number:</string>
     <string name="close">Close</string>
 
-
-
+    <string name="error_missing_from_account">Missing from account.</string>
+    <string name="error_missing_to_account">Missing to account.</string>
+    <string name="error_from_and_to_account_cannot_be_the_same">From and to account cannot be the same.</string>
+    <string name="error_missing_amount">Missing amount.</string>
+    <string name="error_invalid_amount">Invalid amount.</string>
+    <string name="error_server_error">Server error.</string>
 
 </resources>
