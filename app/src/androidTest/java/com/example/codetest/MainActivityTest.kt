@@ -26,7 +26,7 @@ class MainActivityTest {
 
     @Rule
     @JvmField
-    var activityRule = ActivityTestRule<MainActivity>(MainActivity::class.java)
+    var activityTestRule = ActivityTestRule<MainActivity>(MainActivity::class.java)
 
     @Before
     fun setUp() {
@@ -34,7 +34,63 @@ class MainActivityTest {
     }
 
     @Test
-    fun testTransfer() {
+    fun testEmptyFromAccount() {
+        onView(withId(R.id.btnConfirm)).perform(click())
+        onView(withId(R.id.tvErrorMessage)).check(matches(withText(R.string.error_missing_from_account)))
+    }
+
+    @Test
+    fun testEmptyToAccount() {
+        val accounts = DummyData.accounts
+
+        onView(withId(R.id.rlFromAccount)).perform(click())
+        onView(withText(R.string.choose_an_account)).inRoot(isDialog()).check(matches(isDisplayed()))
+        onData(anything()).atPosition(1).perform(click())
+        onView(withId(R.id.tvFromAccountNumber)).check(matches(withText(accounts[1])))
+
+        onView(withId(R.id.btnConfirm)).perform(click())
+        onView(withId(R.id.tvErrorMessage)).check(matches(withText(R.string.error_missing_to_account)))
+    }
+
+    @Test
+    fun testEmptyAmount() {
+        val accounts = DummyData.accounts
+
+        onView(withId(R.id.rlFromAccount)).perform(click())
+        onView(withText(R.string.choose_an_account)).inRoot(isDialog()).check(matches(isDisplayed()))
+        onData(anything()).atPosition(1).perform(click())
+        onView(withId(R.id.tvFromAccountNumber)).check(matches(withText(accounts[1])))
+
+        onView(withId(R.id.rlToAccount)).perform(click())
+        onView(withText(R.string.choose_an_account)).inRoot(isDialog()).check(matches(isDisplayed()))
+        onData(anything()).atPosition(2).perform(click())
+        onView(withId(R.id.tvToAccountNumber)).check(matches(withText(accounts[2])))
+
+        onView(withId(R.id.btnConfirm)).perform(click())
+        onView(withId(R.id.tvErrorMessage)).check(matches(withText(R.string.error_missing_amount)))
+    }
+
+    @Test
+    fun testInvalidAmount() {
+        val accounts = DummyData.accounts
+
+        onView(withId(R.id.rlFromAccount)).perform(click())
+        onView(withText(R.string.choose_an_account)).inRoot(isDialog()).check(matches(isDisplayed()))
+        onData(anything()).atPosition(1).perform(click())
+        onView(withId(R.id.tvFromAccountNumber)).check(matches(withText(accounts[1])))
+
+        onView(withId(R.id.rlToAccount)).perform(click())
+        onView(withText(R.string.choose_an_account)).inRoot(isDialog()).check(matches(isDisplayed()))
+        onData(anything()).atPosition(2).perform(click())
+        onView(withId(R.id.tvToAccountNumber)).check(matches(withText(accounts[2])))
+
+        onView(withId(R.id.etAmount)).perform(typeText("16.789"))
+        onView(withId(R.id.btnConfirm)).perform(click())
+        onView(withId(R.id.tvErrorMessage)).check(matches(withText(R.string.error_invalid_amount)))
+    }
+
+    @Test
+    fun testValidTransfer() {
         val accounts = DummyData.accounts
 
         onView(withId(R.id.rlFromAccount)).perform(click())
@@ -55,7 +111,9 @@ class MainActivityTest {
         intended(hasComponent(hasClassName(TransferSuccessActivity::class.java.name)))
 
         onView(withId(R.id.tvReferenceNumber)).check(matches(withText(startsWith("REF"))))
-//        onView(withId(R.id.tvAmount)).check(matches(withText("16.7")))
+        onView(withId(R.id.tvFromAccountNumber)).check(matches(withText(accounts[1])))
+        onView(withId(R.id.tvToAccountNumber)).check(matches(withText(accounts[2])))
+        onView(withId(R.id.tvAmount)).check(matches(withText("16.7")))
     }
 
     @After
