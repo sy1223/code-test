@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import com.example.codetest.presenter.TransferPresenter
 import com.example.codetest.view.TransferView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -64,6 +63,10 @@ class MainActivity : AppCompatActivity(), TransferView {
         showAccountSelectionDialog(accounts, false)
     }
 
+    override fun onClearErrorMessage() {
+        tvErrorMessage.setText("")
+    }
+
     override fun onTransferSuccess(referenceNumber: String) {
         val intent = Intent(this, TransferSuccessActivity::class.java)
         intent.putExtra(TransferSuccessActivity.DATA_REFERENCE_NUMBER, referenceNumber)
@@ -71,7 +74,6 @@ class MainActivity : AppCompatActivity(), TransferView {
     }
 
     override fun onTransferError(errorMessageRedId: Int) {
-        val toast = Toast.makeText(applicationContext, getString(errorMessageRedId), Toast.LENGTH_LONG)
-        toast.show()
+        tvErrorMessage.setText(errorMessageRedId)
     }
 }

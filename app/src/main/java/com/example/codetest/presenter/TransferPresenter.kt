@@ -39,6 +39,8 @@ class TransferPresenter {
     }
 
     fun onTransfer(fromAccountNumber: String, toAccountNumber: String, amount: String) {
+        transferView?.onClearErrorMessage()
+
         val transactionDataError = validateUserInput(fromAccountNumber, toAccountNumber, amount)
 
         if (transactionDataError == null) {
