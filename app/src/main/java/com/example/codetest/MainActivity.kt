@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(), TransferView {
         super.onDestroy()
     }
 
-    fun showAccountSelectionDialog(accounts: Array<String>, isFromAccount: Boolean) {
+    private fun showAccountSelectionDialog(accounts: Array<String>, isFromAccount: Boolean) {
         val builder = AlertDialog.Builder(this)
         builder.setTitle(getString(R.string.choose_an_account))
         builder.setItems(accounts) { _, which ->
