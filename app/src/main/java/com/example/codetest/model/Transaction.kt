@@ -16,6 +16,10 @@ class Transaction {
     @SerializedName("amount")
     var amount: Double = 0.0
 
+    constructor() {
+
+    }
+
     constructor(fromAccountNumber: String, toAccountNumber: String, amount: Double) {
         this.fromAccountNumber = fromAccountNumber
         this.toAccountNumber = toAccountNumber
