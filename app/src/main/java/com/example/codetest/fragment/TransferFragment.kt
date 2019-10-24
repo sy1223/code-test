@@ -115,13 +115,13 @@ class TransferFragment : Fragment(), TransferContract.View {
     }
 
     override fun clearErrorMessage() {
-        tvErrorMessage?.setText("")
+        tvErrorMessage?.text = ""
     }
 
     override fun resetViewData() {
-        tvFromAccountNumber?.setText("")
-        tvToAccountNumber?.setText("")
+        tvFromAccountNumber?.text = ""
+        tvToAccountNumber?.text = ""
         etAmount?.setText("")
-        tvErrorMessage?.setText("")
+        tvErrorMessage?.text = ""
     }
 }
