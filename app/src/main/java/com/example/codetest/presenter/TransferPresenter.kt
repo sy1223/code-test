@@ -4,13 +4,11 @@ import com.example.codetest.R
 import com.example.codetest.helper.NumberHelper
 import com.example.codetest.model.DummyData
 import com.example.codetest.model.Transaction
-import com.example.codetest.service.APIService
+import com.example.codetest.repository.TransactionRepository
+import com.example.codetest.repository.TransactionRepositoryListener
 import com.example.codetest.view.TransferView
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
-class TransferPresenter {
+class TransferPresenter : TransactionRepositoryListener {
 
     enum class TransactionDataError {
         MISSING_FROM_ACCOUNT,
@@ -21,10 +19,6 @@ class TransferPresenter {
     }
 
     private var transferView: TransferView? = null
-
-    private val apiService by lazy {
-        APIService.create()
-    }
 
     constructor(transferView: TransferView) {
         this.transferView = transferView
@@ -45,7 +39,9 @@ class TransferPresenter {
 
         if (transactionDataError == null) {
             val transaction = Transaction(fromAccountNumber, toAccountNumber, amount.toDouble())
-            postTransferRequest(transaction)
+
+            val transactionRepository = TransactionRepository(this)
+            transactionRepository.transfer(transaction)
         } else {
             val errorMessageRedId = when (transactionDataError) {
                 TransactionDataError.MISSING_FROM_ACCOUNT -> R.string.error_missing_from_account
@@ -87,22 +83,13 @@ class TransferPresenter {
         return null
     }
 
-    private fun postTransferRequest(transaction: Transaction) {
-        val call = apiService.transfer(transaction.fromAccountNumber, transaction.toAccountNumber, transaction.amount)
-        call.enqueue(object : Callback<Transaction> {
-            override fun onResponse(call: Call<Transaction>?, response: Response<Transaction>?) {
-                val transaction = response?.body()
+    // TransactionRepositoryListener functions
 
-                if (response != null && response.isSuccessful() && transaction != null && transaction.isSuccessTransaction()) {
-                    transferView?.onTransferSuccess(transaction.fromAccountNumber, transaction.toAccountNumber, transaction.amount, transaction.referenceNumber)
-                } else {
-                    transferView?.onTransferError(R.string.error_server_error)
-                }
-            }
+    override fun onTransferSuccess(transaction: Transaction) {
+        transferView?.onTransferSuccess(transaction.fromAccountNumber, transaction.toAccountNumber, transaction.amount, transaction.referenceNumber)
+    }
 
-            override fun onFailure(call: Call<Transaction>?, t: Throwable?) {
-                transferView?.onTransferError(R.string.error_server_error)
-            }
-        })
+    override fun onTransferError() {
+        transferView?.onTransferError(R.string.error_server_error)
     }
 }
