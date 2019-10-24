@@ -88,6 +88,7 @@ class TransferPresenter : TransferContract.Presenter, TransactionRepositoryListe
 
     override fun onTransferSuccess(transaction: Transaction) {
         view?.showTransferSuccess(transaction.fromAccountNumber, transaction.toAccountNumber, transaction.amount, transaction.referenceNumber)
+        view?.resetViewData()
     }
 
     override fun onTransferError() {
