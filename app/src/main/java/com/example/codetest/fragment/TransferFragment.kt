@@ -64,29 +64,6 @@ class TransferFragment : Fragment(), TransferContract.View {
         super.onDestroy()
     }
 
-    //
-
-    private fun showAccountSelectionDialog(accounts: Array<String>, isFromAccount: Boolean) {
-        val activity = this.activity
-
-        if (activity != null) {
-            val builder = AlertDialog.Builder(activity)
-            builder.setTitle(getString(R.string.choose_an_account))
-            builder.setItems(accounts) { _, which ->
-                val selectedAccountNumber = accounts[which]
-
-                if (isFromAccount) {
-                    tvFromAccountNumber?.setText(selectedAccountNumber)
-                } else {
-                    tvToAccountNumber?.setText(selectedAccountNumber)
-                }
-            }
-
-            val dialog = builder.create()
-            dialog.show()
-        }
-    }
-
     // TransferContract.View functions
 
     override fun showFromAccounts(accounts: Array<String>) {
@@ -123,5 +100,28 @@ class TransferFragment : Fragment(), TransferContract.View {
         tvToAccountNumber?.text = ""
         etAmount?.setText("")
         tvErrorMessage?.text = ""
+    }
+
+    //
+
+    private fun showAccountSelectionDialog(accounts: Array<String>, isFromAccount: Boolean) {
+        val activity = this.activity
+
+        if (activity != null) {
+            val builder = AlertDialog.Builder(activity)
+            builder.setTitle(getString(R.string.choose_an_account))
+            builder.setItems(accounts) { _, which ->
+                val selectedAccountNumber = accounts[which]
+
+                if (isFromAccount) {
+                    tvFromAccountNumber?.setText(selectedAccountNumber)
+                } else {
+                    tvToAccountNumber?.setText(selectedAccountNumber)
+                }
+            }
+
+            val dialog = builder.create()
+            dialog.show()
+        }
     }
 }
