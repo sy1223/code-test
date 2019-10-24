@@ -62,25 +62,24 @@ class TransferPresenter : TransactionRepositoryListener {
     //
 
     private fun validateUserInput(fromAccountNumber: String, toAccountNumber: String, amount: String): TransactionDataError? {
-        if (fromAccountNumber.isEmpty()) {
-            return TransactionDataError.MISSING_FROM_ACCOUNT
-        } else if (toAccountNumber.isEmpty()) {
-            return TransactionDataError.MISSING_TO_ACCOUNT
-        } else if (amount.isEmpty()) {
-            return TransactionDataError.MISSING_AMOUNT
-        } else if (!NumberHelper.isValidDollarFormat(amount)) {
-            return TransactionDataError.INVALID_AMOUNT
-        } else if (fromAccountNumber == toAccountNumber) {
-            return TransactionDataError.SAME_FROM_AND_TO_ACCOUNT
-        } else {
-            val amountInDouble = amount.toDoubleOrNull()
+        val transactionDataError = when {
+            fromAccountNumber.isEmpty() -> TransactionDataError.MISSING_FROM_ACCOUNT
+            toAccountNumber.isEmpty() -> TransactionDataError.MISSING_TO_ACCOUNT
+            amount.isEmpty() -> TransactionDataError.MISSING_AMOUNT
+            !NumberHelper.isValidDollarFormat(amount) -> TransactionDataError.INVALID_AMOUNT
+            (fromAccountNumber == toAccountNumber) -> TransactionDataError.SAME_FROM_AND_TO_ACCOUNT
+            else -> {
+                val amountInDouble = amount.toDoubleOrNull()
 
-            if (amountInDouble == null || amountInDouble <= 0.0) {
-                return TransactionDataError.INVALID_AMOUNT
+                if (amountInDouble == null || amountInDouble <= 0.0) {
+                    TransactionDataError.INVALID_AMOUNT
+                } else {
+                    null
+                }
             }
         }
 
-        return null
+        return transactionDataError
     }
 
     // TransactionRepositoryListener functions
