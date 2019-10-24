@@ -97,17 +97,6 @@ class TransferFragment : Fragment(), TransferContract.View {
         showAccountSelectionDialog(accounts, false)
     }
 
-    override fun clearErrorMessage() {
-        tvErrorMessage?.setText("")
-    }
-
-    override fun resetViewData() {
-        tvFromAccountNumber?.setText("")
-        tvToAccountNumber?.setText("")
-        etAmount?.setText("")
-        tvErrorMessage?.setText("")
-    }
-
     override fun showTransferSuccess(fromAccountNumber: String, toAccountNumber: String, amount: Double, referenceNumber: String) {
         val activity = getActivity()
         val transferSuccessFragment = TransferSuccessFragment.newInstance(referenceNumber, fromAccountNumber, toAccountNumber, amount)
@@ -123,5 +112,16 @@ class TransferFragment : Fragment(), TransferContract.View {
 
     override fun showTransferError(errorMessageRedId: Int) {
         tvErrorMessage?.setText(errorMessageRedId)
+    }
+
+    override fun clearErrorMessage() {
+        tvErrorMessage?.setText("")
+    }
+
+    override fun resetViewData() {
+        tvFromAccountNumber?.setText("")
+        tvToAccountNumber?.setText("")
+        etAmount?.setText("")
+        tvErrorMessage?.setText("")
     }
 }

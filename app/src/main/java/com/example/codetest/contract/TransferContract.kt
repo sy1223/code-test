@@ -12,9 +12,9 @@ interface TransferContract {
     interface View {
         fun showFromAccounts(accounts: Array<String>)
         fun showToAccounts(accounts: Array<String>)
-        fun clearErrorMessage()
-        fun resetViewData()
         fun showTransferSuccess(fromAccountNumber: String, toAccountNumber: String, amount: Double, referenceNumber: String)
         fun showTransferError(errorMessageRedId: Int)
+        fun clearErrorMessage()
+        fun resetViewData()
     }
 }
