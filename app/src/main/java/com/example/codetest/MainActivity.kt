@@ -4,11 +4,11 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.example.codetest.contract.TransferContract
 import com.example.codetest.presenter.TransferPresenter
-import com.example.codetest.view.TransferView
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), TransferView {
+class MainActivity : AppCompatActivity(), TransferContract.View {
 
     private var transferPresenter: TransferPresenter? = null
 
@@ -53,21 +53,21 @@ class MainActivity : AppCompatActivity(), TransferView {
         dialog.show()
     }
 
-    // TransferView functions
+    // TransferContract.View functions
 
-    override fun onShowFromAccounts(accounts: Array<String>) {
+    override fun showFromAccounts(accounts: Array<String>) {
         showAccountSelectionDialog(accounts, true)
     }
 
-    override fun onShowToAccounts(accounts: Array<String>) {
+    override fun showToAccounts(accounts: Array<String>) {
         showAccountSelectionDialog(accounts, false)
     }
 
-    override fun onClearErrorMessage() {
+    override fun clearErrorMessage() {
         tvErrorMessage.setText("")
     }
 
-    override fun onTransferSuccess(fromAccountNumber: String, toAccountNumber: String, amount: Double, referenceNumber: String) {
+    override fun showTransferSuccess(fromAccountNumber: String, toAccountNumber: String, amount: Double, referenceNumber: String) {
         val intent = Intent(this, TransferSuccessActivity::class.java)
         intent.putExtra(TransferSuccessActivity.DATA_FROM_ACCOUNT_NUMBER, fromAccountNumber)
         intent.putExtra(TransferSuccessActivity.DATA_TO_ACCOUNT_NUMBER, toAccountNumber)
@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity(), TransferView {
         startActivity(intent)
     }
 
-    override fun onTransferError(errorMessageRedId: Int) {
+    override fun showTransferError(errorMessageRedId: Int) {
         tvErrorMessage.setText(errorMessageRedId)
     }
 }

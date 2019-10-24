@@ -1,14 +1,14 @@
 package com.example.codetest.presenter
 
 import com.example.codetest.R
+import com.example.codetest.contract.TransferContract
 import com.example.codetest.helper.NumberHelper
 import com.example.codetest.model.DummyData
 import com.example.codetest.model.Transaction
 import com.example.codetest.repository.TransactionRepository
 import com.example.codetest.repository.TransactionRepositoryListener
-import com.example.codetest.view.TransferView
 
-class TransferPresenter : TransactionRepositoryListener {
+class TransferPresenter : TransferContract.Presenter, TransactionRepositoryListener {
 
     enum class TransactionDataError {
         MISSING_FROM_ACCOUNT,
@@ -18,22 +18,24 @@ class TransferPresenter : TransactionRepositoryListener {
         INVALID_AMOUNT
     }
 
-    private var transferView: TransferView? = null
+    private var view: TransferContract.View? = null
 
-    constructor(transferView: TransferView) {
-        this.transferView = transferView
+    constructor(view: TransferContract.View) {
+        this.view = view
     }
 
-    fun onShowFromAccounts() {
-        transferView?.onShowFromAccounts(DummyData.accounts)
+    // TransferContract.Presenter functions
+
+    override fun onShowFromAccounts() {
+        view?.showFromAccounts(DummyData.accounts)
     }
 
-    fun onShowToAccounts() {
-        transferView?.onShowToAccounts(DummyData.accounts)
+    override fun onShowToAccounts() {
+        view?.showToAccounts(DummyData.accounts)
     }
 
-    fun onTransfer(fromAccountNumber: String, toAccountNumber: String, amount: String) {
-        transferView?.onClearErrorMessage()
+    override fun onTransfer(fromAccountNumber: String, toAccountNumber: String, amount: String) {
+        view?.clearErrorMessage()
 
         val transactionDataError = validateUserInput(fromAccountNumber, toAccountNumber, amount)
 
@@ -51,12 +53,12 @@ class TransferPresenter : TransactionRepositoryListener {
                 TransactionDataError.INVALID_AMOUNT -> R.string.error_invalid_amount
             }
 
-            transferView?.onTransferError(errorMessageRedId)
+            view?.showTransferError(errorMessageRedId)
         }
     }
 
-    fun onDestroy() {
-        transferView = null
+    override fun onDestroy() {
+        view = null
     }
 
     //
@@ -85,10 +87,10 @@ class TransferPresenter : TransactionRepositoryListener {
     // TransactionRepositoryListener functions
 
     override fun onTransferSuccess(transaction: Transaction) {
-        transferView?.onTransferSuccess(transaction.fromAccountNumber, transaction.toAccountNumber, transaction.amount, transaction.referenceNumber)
+        view?.showTransferSuccess(transaction.fromAccountNumber, transaction.toAccountNumber, transaction.amount, transaction.referenceNumber)
     }
 
     override fun onTransferError() {
-        transferView?.onTransferError(R.string.error_server_error)
+        view?.showTransferError(R.string.error_server_error)
     }
 }
