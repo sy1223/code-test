@@ -28,10 +28,10 @@ class TransactionRepository {
 
         call.enqueue(object : Callback<Transaction> {
             override fun onResponse(call: Call<Transaction>?, response: Response<Transaction>?) {
-                val transaction = response?.body()
+                val completedTransaction = response?.body()
 
-                if (response != null && response.isSuccessful() && transaction != null && transaction.isSuccessTransaction()) {
-                    listener?.onTransferSuccess(transaction)
+                if (response != null && response.isSuccessful() && completedTransaction != null && completedTransaction.isSuccessTransaction()) {
+                    listener?.onTransferSuccess(completedTransaction)
                 } else {
                     listener?.onTransferError()
                 }

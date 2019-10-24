@@ -43,15 +43,15 @@ class TransferFragment : Fragment(), TransferContract.View {
         etAmount = view.findViewById(R.id.etAmount)
         tvErrorMessage = view.findViewById(R.id.tvErrorMessage)
 
-        rlFromAccount.setOnClickListener { it
+        rlFromAccount.setOnClickListener {
             transferPresenter?.onShowFromAccounts()
         }
 
-        rlToAccount.setOnClickListener { it
+        rlToAccount.setOnClickListener {
             transferPresenter?.onShowToAccounts()
         }
 
-        btnConfirm.setOnClickListener { it
+        btnConfirm.setOnClickListener {
             transferPresenter?.onTransfer(tvFromAccountNumber?.text.toString(), tvToAccountNumber?.text.toString(), etAmount?.text.toString())
         }
 
@@ -75,7 +75,7 @@ class TransferFragment : Fragment(), TransferContract.View {
     }
 
     override fun showTransferSuccess(fromAccountNumber: String, toAccountNumber: String, amount: Double, referenceNumber: String) {
-        val activity = getActivity()
+        val activity = this.activity
         val transferSuccessFragment = TransferSuccessFragment.newInstance(referenceNumber, fromAccountNumber, toAccountNumber, amount)
 
         if (activity != null) {
@@ -114,9 +114,9 @@ class TransferFragment : Fragment(), TransferContract.View {
                 val selectedAccountNumber = accounts[which]
 
                 if (isFromAccount) {
-                    tvFromAccountNumber?.setText(selectedAccountNumber)
+                    tvFromAccountNumber?.text = selectedAccountNumber
                 } else {
-                    tvToAccountNumber?.setText(selectedAccountNumber)
+                    tvToAccountNumber?.text = selectedAccountNumber
                 }
             }
 

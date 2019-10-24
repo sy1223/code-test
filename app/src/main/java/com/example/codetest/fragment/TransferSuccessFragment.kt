@@ -53,7 +53,7 @@ class TransferSuccessFragment : Fragment(), TransferSuccessContract.View {
         tvToAccountNumber = view.findViewById(R.id.tvToAccountNumber)
         tvAmount = view.findViewById(R.id.tvAmount)
 
-        btnClose.setOnClickListener { it
+        btnClose.setOnClickListener {
             transferSuccessPresenter?.onCloseView()
         }
 
