@@ -3,13 +3,13 @@ package com.example.codetest.contract
 interface TransferSuccessContract {
 
     interface Presenter {
-        fun onReceiveData(fromAccountNumber: String, toAccountNumber: String, amount: Double, referenceNumber: String)
+        fun onReceiveData(referenceNumber: String, fromAccountNumber: String, toAccountNumber: String, amount: Double)
         fun onCloseView()
         fun onDestroy()
     }
 
     interface View {
-        fun showTransferSuccess(fromAccountNumber: String, toAccountNumber: String, amount: Double, referenceNumber: String)
+        fun showTransferSuccess(referenceNumber: String, fromAccountNumber: String, toAccountNumber: String, amount: Double)
         fun dismissView()
     }
 }

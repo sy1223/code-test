@@ -12,8 +12,8 @@ class TransferSuccessPresenter : TransferSuccessContract.Presenter {
 
     // TransferSuccessContract.Presenter functions
 
-    override fun onReceiveData(fromAccountNumber: String, toAccountNumber: String, amount: Double, referenceNumber: String) {
-        view?.showTransferSuccess(fromAccountNumber, toAccountNumber, amount, referenceNumber)
+    override fun onReceiveData(referenceNumber: String, fromAccountNumber: String, toAccountNumber: String, amount: Double) {
+        view?.showTransferSuccess(referenceNumber, fromAccountNumber, toAccountNumber, amount)
     }
 
     override fun onCloseView() {
