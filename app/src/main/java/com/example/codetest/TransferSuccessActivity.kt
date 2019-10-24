@@ -21,12 +21,14 @@ class TransferSuccessActivity : AppCompatActivity(), TransferSuccessContract.Vie
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transfer_success)
 
+        transferSuccessPresenter = TransferSuccessPresenter(this)
+
         val fromAccountNumber = getIntent().getStringExtra(DATA_FROM_ACCOUNT_NUMBER)
         val toAccountNumber = getIntent().getStringExtra(DATA_TO_ACCOUNT_NUMBER)
         val amount = getIntent().getDoubleExtra(DATA_AMOUNT, 0.0)
         val referenceNumber = getIntent().getStringExtra(DATA_REFERENCE_NUMBER)
 
-        transferSuccessPresenter = TransferSuccessPresenter(this, fromAccountNumber, toAccountNumber, amount, referenceNumber)
+        transferSuccessPresenter?.onReceiveData(fromAccountNumber, toAccountNumber, amount, referenceNumber)
 
         btnClose.setOnClickListener { it
             transferSuccessPresenter?.onCloseView()

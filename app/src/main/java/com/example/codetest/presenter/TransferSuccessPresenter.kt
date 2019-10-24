@@ -6,10 +6,8 @@ class TransferSuccessPresenter : TransferSuccessContract.Presenter {
 
     private var view: TransferSuccessContract.View? = null
 
-    constructor(view: TransferSuccessContract.View, fromAccountNumber: String, toAccountNumber: String, amount: Double, referenceNumber: String) {
+    constructor(view: TransferSuccessContract.View) {
         this.view = view
-
-        view.showTransferSuccess(fromAccountNumber, toAccountNumber, amount, referenceNumber)
     }
 
     // TransferSuccessContract.Presenter functions
