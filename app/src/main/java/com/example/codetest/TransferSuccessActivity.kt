@@ -2,11 +2,11 @@ package com.example.codetest
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.example.codetest.contract.TransferSuccessContract
 import com.example.codetest.presenter.TransferSuccessPresenter
-import com.example.codetest.view.TransferSuccessView
 import kotlinx.android.synthetic.main.activity_transfer_success.*
 
-class TransferSuccessActivity : AppCompatActivity(), TransferSuccessView {
+class TransferSuccessActivity : AppCompatActivity(), TransferSuccessContract.View {
 
     companion object {
         val DATA_FROM_ACCOUNT_NUMBER = "DATA_FROM_ACCOUNT_NUMBER"
@@ -38,16 +38,16 @@ class TransferSuccessActivity : AppCompatActivity(), TransferSuccessView {
         super.onDestroy()
     }
 
-    // TransferSuccessView functions
+    // TransferSuccessContract.View functions
 
-    override fun onShowTransferSuccess(fromAccountNumber: String, toAccountNumber: String, amount: Double, referenceNumber: String) {
+    override fun showTransferSuccess(fromAccountNumber: String, toAccountNumber: String, amount: Double, referenceNumber: String) {
         tvFromAccountNumber.setText(fromAccountNumber)
         tvToAccountNumber.setText(toAccountNumber)
         tvAmount.setText(amount.toString())
         tvReferenceNumber.setText(referenceNumber)
     }
 
-    override fun onDismissView() {
+    override fun dismissView() {
         finish()
     }
 }

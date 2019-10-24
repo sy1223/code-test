@@ -1,22 +1,28 @@
 package com.example.codetest.presenter
 
-import com.example.codetest.view.TransferSuccessView
+import com.example.codetest.contract.TransferSuccessContract
 
-class TransferSuccessPresenter {
+class TransferSuccessPresenter : TransferSuccessContract.Presenter {
 
-    private var transferSuccessView: TransferSuccessView? = null
+    private var view: TransferSuccessContract.View? = null
 
-    constructor(transferSuccessView: TransferSuccessView, fromAccountNumber: String, toAccountNumber: String, amount: Double, referenceNumber: String) {
-        this.transferSuccessView = transferSuccessView
+    constructor(view: TransferSuccessContract.View, fromAccountNumber: String, toAccountNumber: String, amount: Double, referenceNumber: String) {
+        this.view = view
 
-        transferSuccessView.onShowTransferSuccess(fromAccountNumber, toAccountNumber, amount, referenceNumber)
+        view.showTransferSuccess(fromAccountNumber, toAccountNumber, amount, referenceNumber)
     }
 
-    fun onCloseView() {
-        transferSuccessView?.onDismissView()
+    // TransferSuccessContract.Presenter functions
+
+    override fun onReceiveData(fromAccountNumber: String, toAccountNumber: String, amount: Double, referenceNumber: String) {
+        view?.showTransferSuccess(fromAccountNumber, toAccountNumber, amount, referenceNumber)
     }
 
-    fun onDestroy() {
-        transferSuccessView = null
+    override fun onCloseView() {
+        view?.dismissView()
+    }
+
+    override fun onDestroy() {
+        view = null
     }
 }
