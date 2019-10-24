@@ -1,6 +1,6 @@
 package com.example.codetest.model
 
-import org.junit.Assert
+import junit.framework.Assert.assertTrue
 import org.junit.Test
 
 class TransactionUnitTest {
@@ -9,6 +9,6 @@ class TransactionUnitTest {
         val transaction = Transaction()
         transaction.referenceNumber = "REF001"
 
-        Assert.assertTrue("Invalid reference number format", transaction.isSuccessTransaction())
+        assertTrue("Invalid reference number format", transaction.isSuccessTransaction())
     }
 }

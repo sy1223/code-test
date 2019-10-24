@@ -8,7 +8,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.mockito.ArgumentMatchers
+import org.mockito.ArgumentMatchers.startsWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnit
 
@@ -73,7 +73,7 @@ class TransferPresenterUnitTest {
     fun when_transferWithValidInformation_then_callOnTransferSuccess() {
         transferPresenter.onTransfer("507-123456-001", "507-123456-838", "16.77")
         Thread.sleep(2000) // Wait for 2 seconds
-        then(mockView).should().showTransferSuccess(eq("507-123456-001"), eq("507-123456-838"), eq(16.77), ArgumentMatchers.startsWith("REF"))
+        then(mockView).should().showTransferSuccess(eq("507-123456-001"), eq("507-123456-838"), eq(16.77), startsWith("REF"))
     }
 
     @After
